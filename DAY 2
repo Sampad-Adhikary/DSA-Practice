@@ -1,0 +1,3 @@
+C++ VECTORS:
+In vectors, data is inserted at the end. Inserting at the end takes differential time, as sometimes the array may need to be extended.
+Removing the last element takes only constant time because no resizing happens. Inserting and erasing at the beginning or in the middle is linear in time.
