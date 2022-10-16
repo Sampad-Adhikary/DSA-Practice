@@ -1,3 +1,22 @@
 C++ VECTORS:
 In vectors, data is inserted at the end. Inserting at the end takes differential time, as sometimes the array may need to be extended.
 Removing the last element takes only constant time because no resizing happens. Inserting and erasing at the beginning or in the middle is linear in time.
+
+Capacity
+
+ 
+size() – Returns the number of elements in the vector.
+max_size() – Returns the maximum number of elements that the vector can hold.
+capacity() – Returns the size of the storage space currently allocated to the vector expressed as number of elements.
+resize(n) – Resizes the container so that it contains ‘n’ elements.
+empty() – Returns whether the container is empty.
+shrink_to_fit() – Reduces the capacity of the container to fit its size and destroys all elements beyond the capacity.
+reserve() – Requests that the vector capacity be at least enough to contain n elements.
+
+Element access:
+
+reference operator [g] – Returns a reference to the element at position ‘g’ in the vector
+at(g) – Returns a reference to the element at position ‘g’ in the vector
+front() – Returns a reference to the first element in the vector
+back() – Returns a reference to the last element in the vector
+data() – Returns a direct pointer to the memory array used internally by the vector to store its owned elements.
