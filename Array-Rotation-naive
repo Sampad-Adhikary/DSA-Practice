@@ -1,0 +1,31 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+void Rotate(vector<int> arr,int d,int n){
+    int i=0;
+    while(i<d){
+        int last = arr[0];
+        for(int j=0;j<n;j++){
+            arr[j] = arr[j+1];
+        }
+        arr[n-1] = last;
+        i++;
+    }
+
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+}
+
+int main(){
+    vector <int> arr;
+    for(int i=1;i<8;i++){
+        arr.push_back(i);
+    }
+    int n;
+    int len = arr.size();
+    cout<<"Enter the number of rotations: ";
+    cin>>n;
+    Rotate(arr,n,len);
+    return 0;
+}
