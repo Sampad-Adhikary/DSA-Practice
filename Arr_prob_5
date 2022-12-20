@@ -1,0 +1,45 @@
+Move all negative elements to end
+
+class Solution{
+    public:
+    void segregateElements(int arr[],int n)
+    {
+        // Your code goes here
+        int cp = 0;
+        int cn = 0;
+        for(int i=0;i<n;i++){
+            if(arr[i] <0){
+                cn++;
+            }
+            else{
+                cp++;
+            }
+        }
+        int arr2[cp];
+        int arr3[cn];
+        int j=0;
+        int k=0;
+        for(int i=0;i<n;i++){
+            if(arr[i]<0){
+                arr3[j] = arr[i];
+                j++;
+            }
+            else{
+                arr2[k] = arr[i];
+                k++;
+            }
+        }
+        k=0;
+        j=0;
+        for(int i=0;i<n;i++){
+            if(i<cp){
+                arr[i] = arr2[j];
+                j++;
+            }
+            else{
+                arr[i] = arr3[k];
+                k++;
+            }
+        }
+    }
+};
