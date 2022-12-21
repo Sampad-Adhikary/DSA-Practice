@@ -1,0 +1,31 @@
+Problem: 
+The value of an alphanumeric string can be defined as:
+The numeric representation of the string in base 10, if it comprises of digits only.
+The length of the string, otherwise.
+Given an array strs of alphanumeric strings, return the maximum value of any string in strs.
+
+ 
+
+class Solution {
+public:
+    int maximumValue(vector<string>& strs) {
+        int ans = 0;
+        for(auto &str:strs){
+            bool onlyChar = false;
+            bool onlyInt = false;
+            int buff = 0;
+            for(int i=0;i<str.size();i++){
+                if(str[i] - '9' < 0 || str[i] - '9' == 0) onlyInt = true;
+                if(str[i] - 'a' > 0 || str[i] - 'a' == 0) onlyChar = true;
+            }
+            if(onlyChar == true){
+                buff = str.size();
+            }
+            else if(onlyInt == true){
+                buff = stoi(str);
+            }
+            ans = max(ans,buff);
+        }
+        return ans;
+    }
+};
