@@ -1,0 +1,64 @@
+Problem: 
+        The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+        P   A   H   N
+        A P L S I I G
+        Y   I   R
+        
+        And then read line by line: "PAHNAPLSIIGYIR"
+        Write the code that will take a string and make this conversion given a number of rows:
+        string convert(string s, int numRows);
+        
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(s.size()<=1 || numRows<=1) return s;
+        string p ="";
+        int len = s.size();
+        char arr[numRows][len];
+        int pos = 0;
+        if(s.size() == 1) return s;
+        int k=0,col=0;
+        for(int j=0;j<len;j++){
+            if(k>=len){
+                col = j;
+                break;
+            }
+            if(pos == 0) pos = numRows -1;
+            if(pos == numRows-1){
+                for(int i=0;i<numRows;i++){
+                    if(k<len){
+                        arr[i][j] = s[k++];
+                    }
+                    else{
+                        arr[i][j] = '$';
+                    }
+                }
+                pos--;
+            }
+            else{
+                for(int i=0;i<numRows;i++){
+                    if(i==pos && k<len){
+                        arr[i][j] = s[k++];
+                    }
+                    else
+                        arr[i][j] = '$';
+                }
+                pos--;
+            }
+            
+        }
+        for(int i=0;i<numRows;i++){
+            for(int j=0;j<col;j++){
+                char temp = arr[i][j];
+                if(arr[i][j] != '$'){
+                    p.push_back(temp);
+                }
+                else{
+                    continue;
+                }
+            }
+        }
+        return p;
+    }
+};
