@@ -1,0 +1,22 @@
+Problem 345. Reverse Vowels of a String
+
+
+class Solution {
+bool isVowel(char ch){
+    return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' || ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U';
+}
+public:
+    string reverseVowels(string s) {
+        int l=0;
+        int h = s.size()-1;
+        while(l<h){
+            while(l<s.size() && !isVowel(s[l])) l++;
+            while(h>=0 && !isVowel(s[h]) )h--;
+            if(l>h){
+                break;
+            }
+            swap(s[l++],s[h--]);
+        }
+        return s;
+    }
+};
