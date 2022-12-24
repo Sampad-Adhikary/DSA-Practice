@@ -1,0 +1,65 @@
+Question:
+Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+
+ 
+
+Example 1:
+
+
+Input: n = 3
+Output: [[1,2,3],[8,9,4],[7,6,5]]
+
+
+
+Solution:
+
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        // vector<vector<int>> result(n, vector<int>(n, 0));
+        //The above function is the short hand for the below code!!
+        vector<vector<int>> result;
+        for(int i=0;i<n;i++){
+            vector<int> temp;
+            for(int j=0;j<n;j++){
+                temp.push_back(0);
+            }
+            result.push_back(temp);
+        }
+        
+        int rb=0,cb=0;
+        int re=n-1;
+        int ce=n-1;
+        int e = 1;
+        while(rb<=re && cb<=ce && e<=n*n){
+            for(int i=cb;i<=ce;i++){
+                result[rb][i] = e;
+                e++;
+            }
+            rb++;
+
+            for(int i=rb;i<=re;i++){
+                result[i][ce] = e;
+                e++;
+            }
+            ce--;
+
+            if(rb<=re){
+                for(int i=ce;i>=cb;i--){
+                    result[re][i] = e;
+                    e++;
+                }
+                re--;
+            }
+
+            if(cb<=ce){
+                for(int i=re;i>=rb;i--){
+                    result[i][cb] = e;
+                    e++;
+                }
+                cb++;
+            }
+        }
+        return result;
+    }
+};
