@@ -1,0 +1,55 @@
+Solution:
+
+class Solution{
+    public:
+    bool isSafe(int nx,int ny,vector<vector<bool>> &visited,vector<vector<int>> &m,int n){
+        if((nx>=0 && nx<n) && (ny>=0 && ny<n) && visited[nx][ny] == 0 && m[nx][ny] == 1){
+            return true;
+        }
+    }
+    
+    void solve(int x,int y,vector<vector<int>> &m,int n,vector<string> &ans,vector<vector<bool>> &visited,string path){
+        if(x==n-1 && y == n-1){
+            ans.push_back(path);
+            return;
+        }
+        
+        //DLRU
+        visited[x][y] = 1;
+        //DOWN
+        if(isSafe(x+1,y,visited,m,n)){
+            solve(x+1,y,m,n,ans,visited,path+"D");
+        }
+        
+        //LEFT
+        if(isSafe(x,y-1,visited,m,n)){
+            solve(x,y-1,m,n,ans,visited,path+"L");
+        }
+        
+        //RIGHT
+        if(isSafe(x,y+1,visited,m,n)){
+            solve(x,y+1,m,n,ans,visited,path+"R");
+        }
+        
+        //UP
+        if(isSafe(x-1,y,visited,m,n)){
+            solve(x-1,y,m,n,ans,visited,path+"U");
+        }
+        visited[x][y] = 0;
+        
+    }
+    
+    vector<string> findPath(vector<vector<int>> &m, int n) {
+        // Your code goes here
+        vector<string> ans;
+        vector<vector<bool>> visited(n,vector<bool>(n,0));
+        string path = "";
+        if(m[0][0] == 0){
+            return ans;
+        }
+        solve(0,0,m,n,ans,visited,path);
+        return ans;
+    }
+};
+
+video: https://www.youtube.com/watch?v=wjqSZy4pMT4&list=PLDzeHZWIZsTryvtXdMr6rPh4IDexB5NIA&index=92
