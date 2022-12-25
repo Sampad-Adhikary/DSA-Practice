@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void nreverse(vector<int>& arr,int i,int j){
+        while(i<j){
+            swap(arr[i],arr[j]);
+            i++;
+            j--;
+        }
+    }
+    void rotate(vector<int>& nums, long long k) {
+        int len = nums.size();
+        if(len < 2){
+            return;
+        }
+        k = k% len;
+        nreverse(nums,len-k,len-1);
+        nreverse(nums,0,len-1);
+        nreverse(nums,k,len-1);
+    }
+};
+
+Space: O(1)
+Time: O(1)
