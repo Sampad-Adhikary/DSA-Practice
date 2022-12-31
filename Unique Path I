@@ -1,0 +1,23 @@
+Problem: There is a robot on an m x n grid. The robot is initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right corner (i.e., grid[m - 1][n - 1]). The robot can only move either down or right at any point in time.
+
+Given the two integers m and n, return the number of possible unique paths that the robot can take to reach the bottom-right corner.
+
+The test cases are generated so that the answer will be less than or equal to 2 * 109.
+
+
+Solution:
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        if(m <=0 || n <= 0) return 0;
+        return UP(m-1, n-1);
+    }
+    int UP(int m, int n){
+        //move out of boundary, it's invalid, should not be counted as a path
+        if(m < 0 || n <0) return 0;
+        //Robot hits the boundary, we can guarantee to have one way to reach the destination
+        if(m==0 || n==0) return 1;
+        //We calculate the sum of how many panths from two paths
+        return UP(m-1, n) + UP(m, n-1);
+    }
+};
