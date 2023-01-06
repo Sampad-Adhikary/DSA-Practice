@@ -15,50 +15,52 @@ Output: [3,4]
 Solution:
 
 class Solution {
+class Solution {
 public:
-    int firstIndex(vector<int>& nums, int low,int high,int target,int l){
+
+    int firstIndex(vector<int>& nums, int target,int low,int high,int buff1){
         if(low>high){
-            return l;
+            return buff1;
         }
-        int mid=low+(high-low)/2;
-        if (nums[mid]==target){
-            l=mid;
-            return firstIndex(nums,low,mid-1,target,l);
+        int mid = low + (high-low)/2;
+        if(nums[mid] == target){
+            buff1 = mid;
+            return firstIndex(nums,target,low,mid-1,buff1);
         }
         else if(nums[mid]<target){
-            return firstIndex(nums,mid+1,high,target,l);
+            return firstIndex(nums,target,mid+1,high,buff1);
         }
         else{
-            return firstIndex(nums,low,mid-1,target,l);
+            return firstIndex(nums,target,low,mid-1,buff1);
         }
-        
-        return l;
+        return buff1;
     }
-    int lastIndex(vector<int>& nums, int low,int high,int target,int r){
+
+    int lastIndex(vector<int>& nums, int target,int low,int high,int buff){
         if(low>high){
-            return r;
+            return buff;
         }
-        int mid=low+(high-low)/2;
-        if (nums[mid]==target){
-            r=mid;             
-            return lastIndex(nums,mid+1,high,target,r);    
+        int mid = low + (high-low)/2;
+        if(nums[mid] == target){
+            buff = mid;
+            return lastIndex(nums,target,mid+1,high,buff);
         }
         else if(nums[mid]<target){
-            return lastIndex(nums,mid+1,high,target,r);
+            return lastIndex(nums,target,mid+1,high,buff);
         }
-else{
-            return lastIndex(nums,low,mid-1,target,r);
-            
+        else{
+            return lastIndex(nums,target,low,mid-1,buff);
         }
-        
-        return r;
+        return buff;
     }
+
     vector<int> searchRange(vector<int>& nums, int target) {
-        int low=0;
-        int high=nums.size()-1;
-        int l=-1,r=-1;
-        l= firstIndex(nums,low,high,target,l);
-        r= lastIndex(nums,low,high,target,r);
-        return {l,r};
-    }
+        int low = 0;
+        int high = nums.size()-1;
+        int lIndex = firstIndex(nums,target,low,high,-1);
+        int rIndex = lastIndex(nums,target,low,high,-1);
+        return {lIndex,rIndex};
+        
+
+    }
 };
