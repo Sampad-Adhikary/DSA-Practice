@@ -1,0 +1,39 @@
+Problem: 
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+You must write an algorithm that runs in O(n) time and without using the division operation.
+
+
+APROACH: 
+Solved this in O(n) time and O(1) space.
+FIrst took a result array where I placed all the left side products of every ith element except for that element. Then found the product of all right elements to an ith element and found product of 2.
+ for nums = {1,2,3,4}
+ result = {1,1,2,6}
+ if we take an array where we put the right side products then:
+ array = {24,12,4,1}
+ now we product array*result but to make it O(1) we we don't use array we do the operation in result directly.
+
+
+Solution:
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int len = nums.size();
+        vector<int> result;
+        result.push_back(1);
+        int temp = 1;
+        for(int i=1;i<len;i++){
+            temp = temp*nums[i-1];
+            result.push_back(temp);
+        }
+        temp = 1;
+        for(int i=len-2;i>=0;i--){
+            temp = temp*nums[i+1];
+            result[i] = result[i]*temp;
+        }
+        return result;
+    }
+};
