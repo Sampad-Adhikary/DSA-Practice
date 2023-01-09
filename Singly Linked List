@@ -1,0 +1,76 @@
+#include<iostream>
+using namespace std;
+
+//LINKED LIST NODE CREATION
+class Node{
+    public:
+    int data;
+    Node* next;
+};
+ 
+// LINKED LIST TRAVERSAL FUNCTION
+void traverse(Node *head){
+    Node *curr = head;
+    while(curr != NULL){
+        cout<<curr->data<<" ";
+        curr = curr->next;
+    }
+}
+
+//LINKED LIST DELETION
+void deleteNode(Node *head,int pos){
+    Node *previous = head;
+    Node *curr = head;
+    for(int i=0;i<pos-1;i++){
+        previous = previous->next;
+    }
+    for(int i=0;i<pos;i++){
+        curr = curr->next;
+    }
+    previous->next = curr->next;
+}
+
+// LINKED LIST INSERT FUNCTION
+void insert(Node *head,int pos,Node *element){
+    Node *curr = head;
+    Node *previous = head;
+    for(int i=0;i<pos-1;i++){
+        previous = previous->next;
+    }
+    for(int i=0;i<pos;i++){
+        curr = curr->next;
+    }
+    element->next = curr;
+    previous->next = element;
+}
+
+int main(){
+    Node* head = NULL; // OBJECT CREATION
+    Node* n1 = NULL;
+    Node* n2 = NULL;
+    Node* n3 = NULL;
+
+    head = new Node(); // INITIALIZATION
+    n1 = new Node();
+    n2 = new Node();
+    n3 = new Node();
+
+    head->data = 0;
+    head->next = n1;
+    n1-> data = 1;
+    n1->next = n2;
+    n2->data = 2; 
+    n3->data = 15;
+
+    //traverse
+    traverse(head);
+    //insert
+    insert(head,1,n3);
+    cout<<endl;
+    traverse(head);
+    //deletion
+    deleteNode(head,1);
+    cout<<endl;
+    traverse(head);
+    return 0;
+}
