@@ -1,0 +1,92 @@
+Question:
+You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.
+
+Return the head of the merged linked list.
+
+
+
+Solution:
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* merge(ListNode* left,ListNode* right){
+        if(left == NULL){
+            return right;
+        }
+        if(right == NULL){
+            return left;
+        }
+        ListNode* NewNode = new ListNode(-1);
+        ListNode* p3 = NewNode;
+        while(left != NULL && right != NULL){
+            if(left->val<right->val){
+                p3->next = left;
+                p3 = left;
+                left = left->next;
+            }
+            else{
+                p3->next = right;
+                p3 = right;
+                right = right->next;
+            }
+        }
+        while(left != NULL){
+            p3->next = left;
+            p3 = left;
+            left = left->next;
+        }
+        while(right != NULL){
+            p3->next = right;
+            p3 = right;
+            right = right->next;
+        }
+        return NewNode->next;
+    }
+
+    ListNode* giveMid(ListNode* head){
+        ListNode* slow = head;
+        ListNode* fast = slow->next;
+        while(fast != NULL && fast->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+    ListNode* mergeSort(ListNode* head){
+        if(head== NULL || head->next == NULL){
+            return head;
+        }
+        else{
+            ListNode* mid = giveMid(head);
+            ListNode* left = head;
+            ListNode* right = mid->next;
+            mid->next = NULL;
+
+            //sort left partition
+            left = mergeSort(left);
+            //sort right partition
+            right = mergeSort(right);
+
+            //merge the two partitions
+            ListNode* result = merge(left,right);
+
+            return result;
+        }
+    }
+    ListNode* sortList(ListNode* head) {
+        ListNode* result = mergeSort(head);
+        return result;
+    }
+};
