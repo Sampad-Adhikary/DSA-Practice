@@ -1,0 +1,48 @@
+#include<iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node* ptr;
+};
+
+//DISPLAY OR TRAVERSE FUNCTION
+void display(Node *head)
+{
+  //your code goes here
+  while(head != NULL){
+      cout<<head->data<<endl;
+      head = head->ptr;
+  }
+}
+
+int main(){
+    //POINTER DECLARATION
+
+    Node* head = NULL;
+    Node* second = NULL;
+    Node* third = NULL;
+    Node* forth = NULL;
+
+    //NEW POINTER
+
+    head = new Node();
+    second = new Node();
+    third = new Node();
+    forth = new Node();
+
+    //INITIALIZING TO A VALUE
+    head->data = 23;
+    head->ptr = second;
+    second->data = 32;
+    second->ptr = third;
+    third->data = 2345;
+    third->ptr = forth;
+    forth->data = 234;
+    forth->ptr = NULL;
+
+    //DISPLAY/TRAVERSE FUNCTION CALL
+    display(head);
+    return 0;
+}
