@@ -1,0 +1,38 @@
+In an alien language, surprisingly, they also use English lowercase letters, but possibly in a different order. The order of the alphabet is some permutation of lowercase letters.
+
+Given a sequence of words written in the alien language, and the order of the alphabet, return true if and only if the given words are sorted lexicographically in this alien language.
+
+
+Solution:
+
+class Solution {
+public:
+    bool isAlienSorted(vector<string>& words, string order) {
+        map <char,int> dictionaryAlien;
+        for(int i=0;i<order.size();i++){
+            dictionaryAlien[order[i]] = i;
+        }
+        int len = words.size();
+        int i=0;
+        for(int i=1;i<len;i++){
+            string currentWord = words[i-1];
+            string nextWord = words[i];
+            int len1 = currentWord.size();
+            int len2 = nextWord.size();
+            bool flag = false;
+            for(int j=0;j<min(len1,len2);j++){
+                if(dictionaryAlien[currentWord[j]]>dictionaryAlien[nextWord[j]]){
+                    return false;
+                }
+                else if(dictionaryAlien[currentWord[j]]<dictionaryAlien[nextWord[j]]){
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag  && currentWord.size()>nextWord.size()){
+                return false;
+            }
+        }
+        return true;
+    }
+};
