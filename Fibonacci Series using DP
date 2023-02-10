@@ -21,3 +21,38 @@ public:
 };
 
 -----------------------Bottom Up Approach Using Tabulation---------------------------
+
+class Solution {
+public:
+    int fib(int n) {
+        if(n<=1){
+            return n;
+        }
+        vector<int> dpArr(n+1,-1);
+        dpArr[0] = 0;
+        dpArr[1] = 1;
+        for(int i=2;i<n+1;i++){
+            dpArr[i] = dpArr[i-1] + dpArr[i-2];
+        }
+        return dpArr[n];
+    }
+};
+
+-----------------------Space Optimization---------------------------
+
+class Solution {
+public:
+    int fib(int n) {
+        if(n<=1){
+            return n;
+        }
+        int prev1 = 1;
+        int prev2 = 0;
+        for(int i=2;i<=n;i++){
+            int current = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = current;
+        }
+        return prev1;
+    }
+};
