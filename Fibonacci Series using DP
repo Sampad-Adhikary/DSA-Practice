@@ -1,0 +1,23 @@
+-----------------------Top Down Approach Using Memoization---------------------------
+
+class Solution {
+public:
+    int dpFib(int n,vector<int> &dpArr){
+        if(n==1 || n==0){
+            return n;
+        }
+        else if(dpArr[n] != -1){
+            return dpArr[n];
+        }
+        else{
+            dpArr[n] = dpFib(n-1,dpArr) + dpFib(n-2,dpArr);
+            return dpArr[n];
+        }
+    }
+    int fib(int n) {
+        vector<int> dpArr(n+1,-1);
+        return dpFib(n,dpArr);
+    }
+};
+
+-----------------------Bottom Up Approach Using Tabulation---------------------------
