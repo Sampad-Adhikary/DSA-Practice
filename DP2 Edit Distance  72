@@ -1,0 +1,58 @@
+Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.
+
+You have the following three operations permitted on a word:
+
+Insert a character
+Delete a character
+Replace a character
+ 
+
+Example 1:
+
+Input: word1 = "horse", word2 = "ros"
+Output: 3
+Explanation: 
+horse -> rorse (replace 'h' with 'r')
+rorse -> rose (remove 'r')
+rose -> ros (remove 'e')
+
+
+
+
+
+
+Solution:
+<--------------------------------------------Recursive Approach TLE--------------------------------------->
+class Solution {
+public:
+    int solve(string& word1,string& word2,int i,int j){
+        //base case
+        if(i == word1.size()){
+            return word2.size()-j;
+        }
+        if(j == word2.size()){
+            return word1.size()-i;
+        }
+        int ans = 0;
+        if(word1[i] == word2[j]){
+            return solve(word1,word2,i+1,j+1);
+        }
+        else{
+            //insert case
+            int insertCount = 1+solve(word1,word2,i,j+1);
+
+            //delete case
+            int deleteCount = 1+solve(word1,word2,i+1,j);
+
+            // replace case
+            int replaceCount = 1+solve(word1,word2,i+1,j+1);
+
+            ans = min(insertCount,min(deleteCount,replaceCount));
+        
+        }
+        return ans;
+    }
+    int minDistance(string word1, string word2) {
+        return solve(word1,word2,0,0);
+    }
+};
