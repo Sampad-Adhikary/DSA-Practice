@@ -56,3 +56,46 @@ public:
         return solve(word1,word2,0,0);
     }
 };
+
+<--------------------------------------------DP Memoization top down approach--------------------------------------->
+
+class Solution {
+public:
+    int solve(string& word1,string& word2,int i,int j,vector<vector<int>>& dp){
+        //base case
+        if(i == word1.size()){
+            return word2.size()-j;
+        }
+        if(j == word2.size()){
+            return word1.size()-i;
+        }
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+        int ans = 0;
+        if(word1[i] == word2[j]){
+            return solve(word1,word2,i+1,j+1,dp);
+        }
+        else{
+            //insert case
+            int insertCount = 1+solve(word1,word2,i,j+1,dp);
+
+            //delete case
+            int deleteCount = 1+solve(word1,word2,i+1,j,dp);
+
+            // replace case
+            int replaceCount = 1+solve(word1,word2,i+1,j+1,dp);
+
+            ans = min(insertCount,min(deleteCount,replaceCount));
+            dp[i][j] = ans;
+        
+        }
+        return ans;
+    }
+    int minDistance(string word1, string word2) {
+        int l1 = word1.size();
+        int l2 = word2.size();
+        vector<vector<int>> dp(l1,vector<int>(l2,-1));
+        return solve(word1,word2,0,0,dp);
+    }
+};
