@@ -45,6 +45,30 @@ public:
     }
 };
 
+USINg RESERVOIR SAMPLING ALGORITHM
+
+class Solution {
+    ListNode* head;
+public:
+    Solution(ListNode* head) {
+        this->head = head;
+    }
+    
+    int getRandom() {
+        int len = 0;
+        int res = 0;
+        ListNode* temp = head;
+        while(temp != NULL){
+            len++;
+            if(rand()%len == 0){
+                res = temp->val;
+            }
+            temp = temp->next;
+        }
+        return res;
+    }
+};
+
 /**
  * Your Solution object will be instantiated and called as such:
  * Solution* obj = new Solution(head);
