@@ -1,0 +1,30 @@
+PROBLEM:
+You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
+
+Increment the large integer by one and return the resulting array of digits.
+
+
+Solution:
+
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        vector<int> v=digits;
+        int len = v.size();
+        for(int i=len-1;i>=0;i--){
+            if(i == len-1)
+                v[i] += 1;
+            if(v[i]==10){
+                v[i] = 0;
+                if(i != 0){
+                    v[i-1]++;
+                }
+                else{
+                    v.push_back(0);
+                    v[i] = 1;
+                }
+            }
+        }
+        return v;
+    }
+};
