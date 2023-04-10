@@ -1,0 +1,54 @@
+PROBLEM:
+Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+
+
+SOLUTION:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    vector<TreeNode*> v;
+    vector<TreeNode*> pPath,qPath;
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root == NULL){
+            return NULL;
+        }
+        dfs(root,p,q);
+        for(int i=0;i< pPath.size();i++){
+            if(pPath[i] != qPath[i]){
+                return pPath[i-1];
+            }
+        }
+        return root;
+    }
+    void dfs(TreeNode* root,TreeNode* p,TreeNode* q){
+        if(root == NULL){
+            return;
+        }
+        v.push_back(root);
+        if(root->val == p->val){
+            for(int i=0;i<v.size();i++){
+                pPath.push_back(v[i]);
+            }
+            pPath.push_back(root);
+        }
+        if(root->val == q->val){
+            for(int i=0;i<v.size();i++){
+                qPath.push_back(v[i]);
+            }
+            qPath.push_back(root);
+        }
+        dfs(root->left,p,q);
+        dfs(root->right,p,q);
+        v.pop_back();
+    }
+};
