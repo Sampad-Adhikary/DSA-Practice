@@ -49,3 +49,26 @@ public:
         dfs(right->left,right->right);
     }
 };
+
+OPTIMIZED SOLUTION:
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if(!root){
+            return root;
+        }
+        Node* left =root;
+        while(left->left != NULL){
+            Node* curr = left;
+            while(curr!= NULL){
+                curr->left->next = curr->right;
+                if(curr->next != NULL){
+                    curr->right ->next = curr->next->left;
+                }
+                curr = curr->next;
+            }
+            left = left->left;
+        }
+        return root;
+    }
+};
