@@ -1,0 +1,39 @@
+PROBLEM: Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+SOLUTION:
+
+
+ITERATIVE:
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+ //STACK APPROACH
+ //Traverse the linked list and put the values in a stack
+ //again traverse by putting new values by poping from stack
+ //O(n) space and time
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode *tail = NULL; // tail is the head node of the reversed list
+        ListNode *cur = head; // you can just use head here, without delaring a new pointer
+        ListNode *pre = head;
+        while(cur)
+        {
+            cur = cur->next; //record the node we will insert to the reversed list next
+            pre->next = tail;//set the node previous to cur points to tail
+            tail = pre;
+            pre = cur; 
+        }
+        return tail;
+    }
+};
