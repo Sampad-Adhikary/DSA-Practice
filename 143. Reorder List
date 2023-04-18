@@ -1,0 +1,63 @@
+PROBLEM:
+You are given the head of a singly linked-list. The list can be represented as:
+
+L0 → L1 → … → Ln - 1 → Ln
+Reorder the list to be on the following form:
+
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+
+SOLUTION:
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if(head == NULL || head->next == NULL){
+            return ;
+        }
+        //Find Middle of the LinkedList
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next !=  NULL && fast->next->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        fast = reverselist(slow->next);
+        slow->next = NULL;
+        slow = head;
+
+        //Merge Lists
+        while(fast != NULL){
+            ListNode* temp = slow->next;
+            slow->next = fast;
+            fast = fast->next;
+            slow->next->next = temp;
+            slow = temp;
+        }
+    }
+    ListNode* reverselist(ListNode* head){
+        if(head == NULL || head->next == NULL){
+            return head;
+        }
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+        ListNode* fast = head->next;
+        while(fast != NULL){
+            curr->next = prev;
+            prev = curr;
+            curr = fast;
+            fast = fast->next;
+        }
+        curr -> next = prev;
+        return curr;
+    }
+};
