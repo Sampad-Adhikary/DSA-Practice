@@ -51,3 +51,48 @@ public:
         }
     }
 };
+
+//BFS method:
+
+class Solution {
+    int m,n;
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        if(grid.size() == 0){
+            return 0;
+        }
+        int dirs[4][2] = {{-1,0},{1,0},{0,-1},{0,1}};
+        m = grid.size();
+        n = grid[0].size();
+        int count = 0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j] == '1'){
+                    
+                    queue<vector<int>> q;
+                    count++;
+                    vector<int> v;
+                    v.push_back(i);
+                    v.push_back(j);
+                    q.push(v);
+                    while(!q.empty()){
+                        vector<int> curr = q.front();
+                        q.pop();
+                        for(int k=0;k<4;k++){
+                            int nr = curr[0]+dirs[k][0];
+                            int nc = curr[1]+dirs[k][1];
+                            if(nr>=0 && nr<m && nc>=0 && nc<n && grid[nr][nc] == '1'){
+                                grid[nr][nc] = '2';
+                                vector<int> v;
+                                v.push_back(nr);
+                                v.push_back(nc);
+                                q.push(v);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return count;
+    }
+};
