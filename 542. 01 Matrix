@@ -1,0 +1,56 @@
+PROBLEM:
+Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell.
+The distance between two adjacent cells is 1.
+
+Input: mat = [[0,0,0],[0,1,0],[0,0,0]]
+Output: [[0,0,0],[0,1,0],[0,0,0]]
+
+SOLUTION :
+By BFS
+
+class Solution {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
+        if(mat.size() == 0){
+            return mat;
+        }
+        int m = mat.size();
+        int n = mat[0].size();
+        int dirs[4][2] = {{-1,0},{1,0},{0,-1},{0,1}};
+        queue<int> row;
+        queue<int> col;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(mat[i][j] == 0){
+                    row.push(i);
+                    col.push(j);
+                }
+                else{
+                    mat[i][j] = -1;
+                }
+            }
+        }
+        int lvl = 0;
+        while(!row.empty()){
+            int size = row.size();
+            for(int i=0;i<size;i++){
+                int r=row.front();
+                row.pop();
+                int c = col.front();
+                col.pop();
+                for(int j = 0;j<4;j++){
+                    int nr = r+dirs[j][0];
+                    int nc = c+dirs[j][1];
+                    if(nr>=0 && nr<m && nc>=0 && nc<n && mat[nr][nc] == -1){
+                        mat[nr][nc] = lvl+1;
+                        row.push(nr);
+                        col.push(nc);
+                    }
+                }
+            }
+            lvl++;
+        }
+        return mat;
+    }
+    
+};
