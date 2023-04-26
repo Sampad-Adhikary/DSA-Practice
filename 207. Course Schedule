@@ -1,0 +1,65 @@
+QUESTION:
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return true if you can finish all courses. Otherwise, return false.
+
+
+SOLUTION: Using BFS by detecting cycle
+
+
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        if(prerequisites.empty()){
+            return true;
+        }
+        int count = numCourses;
+        int indegrees[numCourses];
+        unordered_map<int,vector<int>> map;
+        queue<int> q;
+        for(int i=0;i<numCourses;i++){
+            indegrees[i] =0;
+        }
+        for(int i=0;i<prerequisites.size();i++){
+            vector<int>v = prerequisites[i];
+            int from = v[1];
+            int to = v[0];
+            indegrees[to]++;
+            if(map.find(from) == map.end()){
+                vector<int> temp;
+                temp.push_back(to);
+                map.insert(make_pair(from,temp));
+            }
+            else
+                map.find(from)->second.push_back(to);
+        }
+        for(int i=0;i<numCourses;i++){
+            if(indegrees[i] == 0){
+                q.push(i);
+                count--;
+            }
+        }
+        while(!q.empty()){
+            int curr = q.front();
+            q.pop();
+            if(map.find(curr) != map.end()){
+                vector<int> edges = map.find(curr)->second;
+                for(int i=0;i<edges.size();i++){
+                    int edge = edges[i];
+                    indegrees[edge] =indegrees[edge] -1;
+                    if(indegrees[edge] == 0){
+                        q.push(edge);
+                        count--;
+                    }
+                }
+            }
+        }
+        if(count > 0){
+            cout<<count;
+            return false;
+        }
+        cout<<count;
+        return true;
+    }
+};
